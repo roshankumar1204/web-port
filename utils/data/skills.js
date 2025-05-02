@@ -20,7 +20,7 @@ export const skillsData = [
   'Angular',
   'MaterialUI',
   'Tensorflow',
-  'Node JS',
+  
   'Strapi'
 ]
 
