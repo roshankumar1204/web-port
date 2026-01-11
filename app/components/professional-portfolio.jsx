@@ -13,9 +13,9 @@ const ProfessionalPortfolio = () => {
       <nav className="mb-8">
         <div className="flex items-center justify-between py-5 border-b border-gray-200">
           <div className="flex flex-shrink-0 items-center">
-            <span className="text-gray-900 text-2xl font-bold">Roshan Kumar</span>
+            <span className="text-gray-900 text-xl md:text-2xl font-bold">Roshan Kumar</span>
           </div>
-          <ul className="flex flex-row space-x-1">
+          <ul className="hidden md:flex flex-row space-x-1">
             <li>
               <a className="block px-4 py-2 no-underline outline-none hover:no-underline" href="#about">
                 <div className="text-sm text-gray-700 transition-colors duration-300 hover:text-gray-900 font-medium">ABOUT</div>
@@ -42,6 +42,12 @@ const ProfessionalPortfolio = () => {
               </a>
             </li>
           </ul>
+          {/* Mobile menu - Hamburger-style compact links */}
+          <div className="flex md:hidden gap-3 text-xs">
+            <a href="#about" className="text-gray-700 hover:text-gray-900">About</a>
+            <a href="#experience" className="text-gray-700 hover:text-gray-900">Exp</a>
+            <a href="#projects" className="text-gray-700 hover:text-gray-900">Projects</a>
+          </div>
         </div>
       </nav>
       
