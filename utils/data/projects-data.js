@@ -6,7 +6,7 @@ export const projectsData = [
         tools: ['React', 'Next.js', 'Python', 'Flask', 'Google OAuth', 'Gmail API', 'Google Calendar API', 'LangChain', 'LLM', 'Cloud Run', 'Supabase'],
         role: 'Full Stack Developer',
         code: '',
-        demo: 'https://soni.app/home'
+        demo: 'https://sonii.app/home'
     }
     ,
     {

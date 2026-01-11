@@ -139,14 +139,14 @@ export const personalData = {
   profile: "/profile.png",
   designation: "Software Developer",
   description: "I'm Roshan Kumar, a passionate full-stack developer...",
-  email: "roshanhere03@gmail.com",
-  phone: "+91 7368827906",
+  email: "xxxxxxxxxxxxx@gmail.com",
+  phone: "+xx xxxxxxxxxx",
   address: "Banglore, India",
-  github: "https://github.com/roshankumar1204",
-  linkedIn: "https://www.linkedin.com/in/roshan-kumar1204",
-  leetcode: "https://leetcode.com/u/roshantheAWkward/",
-  devUsername: "roshan_1204",
-  resume: "https://drive.google.com/file/d/...",
+  github: "https://github.com/xxxxxxxxxx",
+  linkedIn: "https://www.linkedin.com/in/xxxxxxxxxx",
+  leetcode: "https://leetcode.com/u/xxxxxxxxxx",
+  devUsername: "xxxxxxxxxx",
+  resume: "https://drive.google.com/file/d/xxxxxxxxxx",
 };
 ```
 
@@ -258,4 +258,4 @@ then do the usual `npm run dev`
 
 ## Acknowledgments
 
-Inspired by [Developer Portfolio](https://github.com/said7388/developer-portfolio) by Abu Said.
+Inspired by [Developer Portfolio](https://github.com/said7388/developer-portfolio) by Roshan Kumar.
