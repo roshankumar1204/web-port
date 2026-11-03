@@ -1,67 +1,47 @@
 "use client";
-import { useState } from "react";
-import dynamic from "next/dynamic";
-import AboutSection from "./components/homepage/about";
-import Blog from "./components/homepage/blog";
-import ContactSection from "./components/homepage/contact";
-import HeroSection from "./components/homepage/hero-section";
-import Projects from "./components/homepage/projects";
-import Skills from "./components/homepage/skills";
-import PortfolioModeToggle from "./components/portfolio-mode-toggle";
-import ProfessionalPortfolio from "./components/professional-portfolio";
+import { useEffect, useState } from "react";
+import ModeToggle from "./components/mode-toggle";
+import Creative from "./components/creative";
+import Professional from "./components/professional";
 
-// Import components with document/window APIs dynamically with SSR disabled
-const ScrollToTop = dynamic(() => import("./components/helper/scroll-to-top"), {
-  ssr: false,
-});
+// Mode is shareable via ?view=professional and remembered per visitor.
+const KEY = "portfolio-view";
 
-const Education = dynamic(() => import("./components/homepage/education"), {
-  ssr: false,
-});
-
-const Experience = dynamic(() => import("./components/homepage/experience"), {
-  ssr: false,
-});
-
-// async function getData() {
-//   const res = await fetch(`https://dev.to/api/articles?username=${personalData.devUsername}`)
-//   console.log(personalData.devUsername);
-
-
-//   if (!res.ok) {
-//     throw new Error('Failed to fetch data')
-//   }
-
-//   const data = await res.json();
-//   console.log(data);
-  
-
-//   const filtered = data.filter((item) => item?.cover_image).sort(() => Math.random() - 0.5);
-
-//   return filtered;
-// };
-
-// Home page with mode toggle and scroll-to-top
 export default function Home() {
-  const [mode, setMode] = useState("professional");
+  const [mode, setMode] = useState("creative");
+
+  useEffect(() => {
+    let initial = null;
+    const fromUrl = new URLSearchParams(window.location.search).get("view");
+    if (fromUrl === "professional" || fromUrl === "creative") initial = fromUrl;
+    if (!initial) {
+      try {
+        initial = localStorage.getItem(KEY);
+      } catch {}
+    }
+    if (initial === "professional" || initial === "creative") setMode(initial);
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.dataset.mode = mode;
+    try {
+      localStorage.setItem(KEY, mode);
+    } catch {}
+    const url = new URL(window.location.href);
+    url.searchParams.set("view", mode);
+    window.history.replaceState(null, "", url);
+  }, [mode]);
+
+  const change = (next) => {
+    if (next === mode) return;
+    window.scrollTo({ top: 0 });
+    setMode(next);
+  };
 
   return (
-    <div suppressHydrationWarning>
-      <PortfolioModeToggle mode={mode} setMode={setMode} />
-      <ScrollToTop />
-      {mode === "creative" ? (
-        <>
-          <HeroSection />
-          <AboutSection />
-          <Experience />
-          <Skills />
-          <Projects />
-          <Education />
-          <ContactSection />
-        </>
-      ) : (
-        <ProfessionalPortfolio />
-      )}
-    </div>
+    <>
+      <ModeToggle mode={mode} onChange={change} />
+      {mode === "creative" ? <Creative /> : <Professional />}
+    </>
   );
 }

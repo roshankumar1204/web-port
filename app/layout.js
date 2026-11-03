@@ -1,33 +1,33 @@
 import { GoogleTagManager } from "@next/third-parties/google";
-import { Inter } from "next/font/google";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Footer from "./components/footer";
-import ScrollToTop from "./components/helper/scroll-to-top";
-import Navbar from "./components/navbar";
-import "./css/card.scss";
+import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "./css/globals.scss";
-const inter = Inter({ subsets: ["latin"] });
+
+const sans = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
+const display = Space_Grotesk({ subsets: ["latin"], variable: "--font-display", display: "swap" });
+const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap" });
 
 export const metadata = {
-  title: "Rizhu.in",
+  title: "Roshan Kumar | Software Engineer",
   description:
-    "This is the portfolio of Roshan kumar. I am a full stack developer and a self taught developer. I love to learn new things and I am always open to collaborating with others. I am a quick learner and I am always looking for new challenges.",
+    "Roshan Kumar: software engineer (MCA 2026) building AI systems, BLE wearable apps and deployed backends. Python, C++, LLMs, FastAPI, PostgreSQL, Cloud Run.",
+  openGraph: {
+    title: "Roshan Kumar | Software Engineer",
+    description:
+      "Built an ERP that recouped ₹74,071 in missed GST credit and owned the architecture of a BLE wearable fitness app. AI, backend and IoT.",
+    url: "https://rizhu.netlify.app/",
+    type: "website",
+  },
+};
+
+export const viewport = {
+  themeColor: "#07070b",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <ToastContainer />
-        <main className="min-h-screen relative mx-auto px-6 sm:px-12 lg:max-w-[70rem] xl:max-w-[76rem] 2xl:max-w-[92rem] text-white">
-          <Navbar />
-          {children}
-          <ScrollToTop />
-        </main>
-        <Footer />
-      </body>
-      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM} />
+    <html lang="en" className={`${sans.variable} ${display.variable} ${mono.variable}`} suppressHydrationWarning>
+      <body>{children}</body>
+      {process.env.NEXT_PUBLIC_GTM && <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM} />}
     </html>
   );
 }
