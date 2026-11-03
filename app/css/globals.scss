@@ -95,19 +95,6 @@ html.lenis body {
   80% { transform: translate(6%, -2%); }
 }
 
-.marquee-track {
-  display: flex;
-  width: max-content;
-  animation: marquee var(--marquee-speed, 40s) linear infinite;
-}
-.marquee-track.reverse {
-  animation-direction: reverse;
-}
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
 /* spotlight cards: --mx / --my set from JS */
 .spotlight {
   position: relative;
@@ -139,7 +126,6 @@ html.lenis body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .marquee-track,
   .grain::after {
     animation: none;
   }

@@ -120,6 +120,7 @@ export const experience = [
 export const projects = [
   {
     name: "Soni Vault",
+    image: "/projects/soni-vault.jpg",
     kind: "Document AI for GST invoices",
     url: "https://soni-vault.netlify.app",
     featured: true,
@@ -136,8 +137,9 @@ export const projects = [
   },
   {
     name: "Cloner",
+    image: "/projects/cloner.jpg",
     kind: "Website-to-code generator",
-    url: "https://cloner.live",
+    url: "https://cloner-256999128320.asia-south1.run.app/",
     featured: true,
     hue: 265,
     tech: ["Playwright", "Selenium", "React", "Tailwind", "LLMs", "Cloud Run"],
@@ -168,6 +170,7 @@ export const projects = [
   },
   {
     name: "AI Spend Observability",
+    image: "/projects/ai-spend.jpg",
     kind: "Data connector platform",
     url: "https://ai-usage-ledger.vercel.app/",
     hue: 195,
@@ -199,6 +202,7 @@ export const projects = [
   },
   {
     name: "ISL Translator",
+    image: "/projects/isl.jpg",
     kind: "Indian Sign Language → Hindi",
     url: "https://github.com/roshankumar1204/ISL",
     hue: 45,
@@ -212,6 +216,7 @@ export const projects = [
   },
   {
     name: "Workflow Automation",
+    image: "/projects/workflow.jpg",
     kind: "Node-based pipeline builder",
     url: "https://vectorshift-tau.vercel.app/",
     hue: 120,

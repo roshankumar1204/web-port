@@ -1,8 +1,9 @@
 "use client";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { AnimatePresence, motion, useInView, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { FiArrowDown, FiArrowUpRight, FiCheck, FiCopy, FiGithub, FiLinkedin } from "react-icons/fi";
+import { FiArrowDown, FiArrowUpRight, FiCheck, FiCopy, FiCpu, FiGithub, FiLinkedin } from "react-icons/fi";
 import {
   certifications,
   education,
@@ -139,7 +140,7 @@ function Hero() {
           {profile.available}
         </motion.p>
 
-        <h1 className="font-display text-[clamp(3.6rem,13vw,11.5rem)] font-bold uppercase leading-[0.86] tracking-[-0.04em]">
+        <h1 className="font-display text-[clamp(2.8rem,8.5vw,7rem)] font-bold uppercase leading-[0.86] tracking-[-0.04em]">
           <SplitLetters text={profile.firstName} delay={0.3} />
           <br />
           <SplitLetters text={profile.lastName} delay={0.55} className="text-outline" />
@@ -151,7 +152,7 @@ function Hero() {
           transition={{ duration: 0.9, delay: 1.1, ease: EASE }}
           className="mt-8 max-w-xl"
         >
-          <p className="text-lg text-[var(--c-ink)] sm:text-2xl">
+          <p className="text-base text-[var(--c-ink)] sm:text-xl">
             Software engineer. I build <br className="sm:hidden" />
             <RotatingLine />
           </p>
@@ -174,29 +175,6 @@ function Hero() {
   );
 }
 
-function Marquee() {
-  const row1 = skillGroups.slice(0, 4).flatMap((g) => g.items.slice(0, 5));
-  const row2 = skillGroups.slice(4).flatMap((g) => g.items.slice(0, 5));
-  const Row = ({ items, reverse, speed }) => (
-    <div className="flex overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_10%,black_90%,transparent)]">
-      <div className={`marquee-track ${reverse ? "reverse" : ""}`} style={{ "--marquee-speed": speed }}>
-        {[...items, ...items].map((t, i) => (
-          <span key={i} className="flex items-center gap-6 whitespace-nowrap px-3 font-display text-2xl font-medium text-[var(--c-muted)] sm:text-4xl">
-            {t}
-            <span className="text-[var(--c-accent)]">✦</span>
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-  return (
-    <div aria-hidden className="space-y-3 border-y border-[var(--c-line)] py-6">
-      <Row items={row1} speed="55s" />
-      <Row items={row2} reverse speed="65s" />
-    </div>
-  );
-}
-
 function SectionLabel({ index, children }) {
   return (
     <p className="mb-6 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-[var(--c-muted)]">
@@ -209,17 +187,17 @@ function SectionLabel({ index, children }) {
 
 function About() {
   return (
-    <section id="about" className="mx-auto max-w-[1400px] px-5 py-28 sm:px-8 md:py-40">
+    <section id="about" className="mx-auto max-w-[1400px] px-5 py-20 sm:px-8 md:py-28">
       <SectionLabel index="01">About</SectionLabel>
       <ScrollWords
         text={`${profile.tagline} I owned the architecture of a fitness startup's BLE-wearable app, and built an ERP for a JSW vendor that recouped ₹74,071 in missed GST credit.`}
-        className="max-w-5xl font-display text-[clamp(1.8rem,4.4vw,3.8rem)] font-medium leading-[1.1] tracking-tight"
+        className="max-w-5xl font-display text-[clamp(1.4rem,3vw,2.5rem)] font-medium leading-[1.1] tracking-tight"
       />
 
-      <div className="mt-20 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-[var(--c-line)] bg-[var(--c-line)] lg:grid-cols-4">
+      <div className="mt-14 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-[var(--c-line)] bg-[var(--c-line)] lg:grid-cols-4">
         {stats.map((s) => (
           <div key={s.label} className="bg-[var(--c-bg)] p-6 sm:p-8">
-            <div className="font-display text-3xl font-bold tracking-tight sm:text-5xl">
+            <div className="font-display text-2xl font-bold tracking-tight sm:text-4xl">
               <Counter {...s} />
             </div>
             <p className="mt-2 text-sm text-[var(--c-muted)]">{s.label}</p>
@@ -252,7 +230,7 @@ function About() {
   );
 }
 
-function ProjectCover({ p, index }) {
+function ProjectCover({ p }) {
   return (
     <div
       className="relative h-44 overflow-hidden rounded-xl border border-white/10 sm:h-52"
@@ -261,15 +239,26 @@ function ProjectCover({ p, index }) {
           radial-gradient(90% 90% at 90% 100%, hsl(${(p.hue + 70) % 360} 90% 55% / 0.45), transparent 60%), #0c0c12`,
       }}
     >
-      <div aria-hidden className="grid-lines absolute inset-0 opacity-70" />
-      <span
-        aria-hidden
-        className="absolute -bottom-6 right-3 font-display text-[7rem] font-bold leading-none text-white/10 sm:text-[9rem]"
-        style={{ transform: "translateZ(40px)" }}
-      >
-        {String(index + 1).padStart(2, "0")}
-      </span>
-      <span className="absolute left-4 top-4 rounded-full bg-black/40 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-white backdrop-blur">
+      {p.image ? (
+        <Image
+          src={p.image}
+          alt={`${p.name} screenshot`}
+          fill
+          sizes="(min-width: 768px) 50vw, 100vw"
+          className="object-cover object-top opacity-85 transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+        />
+      ) : (
+        <>
+          <div aria-hidden className="grid-lines absolute inset-0 opacity-70" />
+          <div aria-hidden className="absolute inset-0 flex items-center justify-center">
+            <span className="flex h-16 w-16 items-center justify-center rounded-2xl border border-white/15 bg-black/30 text-2xl text-white backdrop-blur">
+              <FiCpu />
+            </span>
+          </div>
+        </>
+      )}
+      <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+      <span className="absolute left-4 top-4 z-10 rounded-full bg-black/70 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-white backdrop-blur">
         {p.badge}
       </span>
     </div>
@@ -280,11 +269,11 @@ const SPANS = ["md:col-span-3", "md:col-span-3", "md:col-span-2", "md:col-span-2
 
 function Work() {
   return (
-    <section id="work" className="mx-auto max-w-[1400px] px-5 py-28 sm:px-8 md:py-36">
+    <section id="work" className="mx-auto max-w-[1400px] px-5 py-20 sm:px-8 md:py-28">
       <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
         <div>
           <SectionLabel index="02">Selected work</SectionLabel>
-          <h2 className="font-display text-[clamp(2.6rem,7vw,6rem)] font-bold leading-[0.95] tracking-[-0.03em]">
+          <h2 className="font-display text-[clamp(2rem,4.6vw,3.75rem)] font-bold leading-[0.95] tracking-[-0.03em]">
             Things I&apos;ve <span className="text-outline">shipped</span>
           </h2>
         </div>
@@ -303,7 +292,7 @@ function Work() {
                   {...(p.url ? { href: p.url, target: "_blank", rel: "noopener noreferrer" } : {})}
                   className="group flex h-full flex-col rounded-2xl border border-[var(--c-line)] bg-white/[0.025] p-3 transition-colors hover:border-white/20"
                 >
-                  <ProjectCover p={p} index={i} />
+                  <ProjectCover p={p} />
                   <div className="flex flex-1 flex-col p-3 pt-5">
                     <div className="flex items-start justify-between gap-4">
                       <div>
@@ -342,9 +331,9 @@ function Experience() {
 
   return (
     <section id="experience" className="relative border-t border-[var(--c-line)] bg-[#0a0a10]">
-      <div className="mx-auto max-w-[1400px] px-5 py-28 sm:px-8 md:py-36">
+      <div className="mx-auto max-w-[1400px] px-5 py-20 sm:px-8 md:py-28">
         <SectionLabel index="03">Experience</SectionLabel>
-        <h2 className="font-display text-[clamp(2.6rem,7vw,6rem)] font-bold leading-[0.95] tracking-[-0.03em]">
+        <h2 className="font-display text-[clamp(2rem,4.6vw,3.75rem)] font-bold leading-[0.95] tracking-[-0.03em]">
           Where I&apos;ve <span className="text-outline">worked</span>
         </h2>
 
@@ -362,7 +351,7 @@ function Experience() {
                 <span aria-hidden className="absolute left-0 top-2 h-[15px] w-[15px] rounded-full border-2 border-[var(--c-accent)] bg-[#0a0a10] lg:left-[calc(33%-8px)]" />
                 <div className="lg:sticky lg:top-28 lg:self-start lg:pr-14">
                   <p className="font-mono text-xs uppercase tracking-[0.16em] text-[var(--c-accent)]">{job.period}</p>
-                  <h3 className="mt-2 font-display text-3xl font-bold tracking-tight sm:text-4xl">{job.company}</h3>
+                  <h3 className="mt-2 font-display text-2xl font-bold tracking-tight sm:text-3xl">{job.company}</h3>
                   <p className="mt-2 text-sm text-[var(--c-muted)]">{job.context}</p>
                 </div>
                 <Reveal className="lg:pl-14">
@@ -409,11 +398,11 @@ const GLOBE_ITEMS = [
 
 function Skills() {
   return (
-    <section id="skills" className="mx-auto max-w-[1400px] px-5 py-28 sm:px-8 md:py-36">
+    <section id="skills" className="mx-auto max-w-[1400px] px-5 py-20 sm:px-8 md:py-28">
       <SectionLabel index="04">Toolkit</SectionLabel>
       <div className="grid gap-14 lg:grid-cols-2">
         <div>
-          <h2 className="font-display text-[clamp(2.6rem,7vw,6rem)] font-bold leading-[0.95] tracking-[-0.03em]">
+          <h2 className="font-display text-[clamp(2rem,4.6vw,3.75rem)] font-bold leading-[0.95] tracking-[-0.03em]">
             The <span className="text-outline">stack</span>
           </h2>
           <p className="mt-5 max-w-md text-[var(--c-muted)]">
@@ -486,9 +475,9 @@ function Contact() {
   return (
     <section id="contact" className="relative overflow-hidden border-t border-[var(--c-line)]">
       <div aria-hidden className="absolute left-1/2 top-full h-[900px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(198,255,61,0.16),transparent_60%)]" />
-      <div className="relative mx-auto max-w-[1400px] px-5 pb-36 pt-28 sm:px-8 md:pt-40">
+      <div className="relative mx-auto max-w-[1400px] px-5 pb-32 pt-20 sm:px-8 md:pt-28">
         <SectionLabel index="06">Contact</SectionLabel>
-        <h2 className="font-display text-[clamp(3rem,10vw,9rem)] font-bold leading-[0.9] tracking-[-0.04em]">
+        <h2 className="font-display text-[clamp(2.4rem,6.5vw,5.5rem)] font-bold leading-[0.9] tracking-[-0.04em]">
           Let&apos;s build
           <br />
           <span className="text-outline">something</span> <span className="text-[var(--c-accent)]">real.</span>
@@ -496,7 +485,7 @@ function Contact() {
 
         <div className="mt-14 flex flex-col items-start gap-10 md:flex-row md:items-center md:justify-between">
           <div>
-            <a href={`mailto:${profile.email}`} className="font-display text-2xl font-medium underline decoration-white/20 underline-offset-8 transition-colors hover:decoration-[var(--c-accent)] sm:text-4xl">
+            <a href={`mailto:${profile.email}`} className="font-display text-xl font-medium underline decoration-white/20 underline-offset-8 transition-colors hover:decoration-[var(--c-accent)] sm:text-3xl">
               {profile.email}
             </a>
             <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -519,7 +508,7 @@ function Contact() {
           <Magnetic>
             <a
               href={`mailto:${profile.email}`}
-              className="flex h-40 w-40 flex-col items-center justify-center rounded-full bg-[var(--c-accent)] font-display text-lg font-semibold text-black transition-transform hover:scale-105 sm:h-48 sm:w-48"
+              className="flex h-32 w-32 flex-col items-center justify-center rounded-full bg-[var(--c-accent)] font-display text-lg font-semibold text-black transition-transform hover:scale-105 sm:h-40 sm:w-40"
             >
               Say hello
               <FiArrowUpRight className="mt-1 text-2xl" aria-hidden />
@@ -546,7 +535,6 @@ export default function Creative() {
       <Nav />
       <main>
         <Hero />
-        <Marquee />
         <About />
         <Work />
         <Experience />

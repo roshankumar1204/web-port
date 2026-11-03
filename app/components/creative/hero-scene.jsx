@@ -91,7 +91,7 @@ function Responsive({ children }) {
   const width = useThree((s) => s.size.width);
   const mobile = width < 768;
   return (
-    <group scale={mobile ? 0.62 : 0.88} position={mobile ? [0, 1.25, 0] : [0.3, 0, 0]}>
+    <group scale={mobile ? 0.55 : 0.72} position={mobile ? [0, 1.35, 0] : [0.5, 0, 0]}>
       {children}
     </group>
   );
